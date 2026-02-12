@@ -1,5 +1,4 @@
 import type {
-	IAuthenticateGeneric,
 	Icon,
 	ICredentialTestRequest,
 	ICredentialType,
@@ -36,20 +35,18 @@ export class RequestManagementApi implements ICredentialType {
 		},
 	];
 
-	authenticate: IAuthenticateGeneric = {
-		type: 'generic',
-		properties: {
-			body: {
-				access_token_v2: '={{$credentials.accessToken}}',
-			},
-		},
-	};
+	// Note: authenticate is handled manually in transport.ts
+	// to ensure proper form-urlencoded format
 
 	test: ICredentialTestRequest = {
 		request: {
 			baseURL: '=https://request.{{$credentials.domain}}/extapi/v1',
 			url: '/group/list',
 			method: 'POST',
+			body: {
+				access_token_v2: '={{$credentials.accessToken}}',
+				page: 0,
+			},
 		},
 	};
 }

@@ -27,19 +27,15 @@ class RequestManagementApi {
                 required: true,
             },
         ];
-        this.authenticate = {
-            type: 'generic',
-            properties: {
-                body: {
-                    access_token_v2: '={{$credentials.accessToken}}',
-                },
-            },
-        };
         this.test = {
             request: {
                 baseURL: '=https://request.{{$credentials.domain}}/extapi/v1',
                 url: '/group/list',
                 method: 'POST',
+                body: {
+                    access_token_v2: '={{$credentials.accessToken}}',
+                    page: 0,
+                },
             },
         };
     }
