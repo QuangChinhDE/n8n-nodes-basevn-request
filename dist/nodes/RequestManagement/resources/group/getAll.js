@@ -7,56 +7,39 @@ const descriptions_1 = require("../../shared/descriptions");
 const utils_1 = require("../../shared/utils");
 exports.getAllDescription = [
     {
-        ...descriptions_1.returnAllDescription,
-        displayOptions: {
-            show: {
-                resource: ['group'],
-                operation: ['getAll'],
-            },
-        },
-    },
-    {
         ...descriptions_1.pageDescription,
         displayOptions: {
             show: {
                 resource: ['group'],
                 operation: ['getAll'],
-                returnAll: [false],
             },
         },
     },
 ];
 async function execute(index) {
     const returnData = [];
-    const returnAll = this.getNodeParameter('returnAll', index, false);
-    let responseData;
-    if (returnAll) {
-        responseData = await transport_1.requestManagementApiRequestWithPagination.call(this, '/group/list', {}, 'groups');
-    }
-    else {
-        const page = this.getNodeParameter('page', index, 0);
-        const body = (0, utils_1.cleanBody)({ page });
-        const response = await transport_1.requestManagementApiRequest.call(this, 'POST', '/group/list', body);
-        if (response.code === 1 && response.groups) {
-            responseData = response.groups;
+    const page = this.getNodeParameter('page', index, 0);
+    const body = (0, utils_1.cleanBody)({ page });
+    const response = await transport_1.requestManagementApiRequest.call(this, 'POST', '/group/list', body);
+    if (response.code === 1 && response.groups) {
+        const responseData = response.groups;
+        if (Array.isArray(responseData)) {
+            responseData.forEach((item) => {
+                returnData.push({
+                    json: item,
+                    pairedItem: index,
+                });
+            });
         }
         else {
-            throw new Error(`API Error: ${response.message || 'Unknown error'}`);
-        }
-    }
-    if (Array.isArray(responseData)) {
-        responseData.forEach((item) => {
             returnData.push({
-                json: item,
+                json: responseData,
                 pairedItem: index,
             });
-        });
+        }
     }
     else {
-        returnData.push({
-            json: responseData,
-            pairedItem: index,
-        });
+        throw new Error(`API Error: ${response.message || 'Unknown error'}`);
     }
     return returnData;
 }

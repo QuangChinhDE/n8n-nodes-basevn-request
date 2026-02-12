@@ -26,7 +26,7 @@ export async function requestManagementApiRequest(
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded',
 		},
-		form: requestBody, // n8n will convert this to form-urlencoded
+		body: requestBody,
 	};
 
 	return await this.helpers.httpRequest(options);

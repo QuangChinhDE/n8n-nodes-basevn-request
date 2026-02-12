@@ -4,30 +4,17 @@ import type {
 	INodeExecutionData,
 	INodeProperties,
 } from 'n8n-workflow';
-import {
-	requestManagementApiRequest,
-	requestManagementApiRequestWithPagination,
-} from '../../shared/transport';
-import { returnAllDescription, pageDescription } from '../../shared/descriptions';
+import { requestManagementApiRequest } from '../../shared/transport';
+import { pageDescription } from '../../shared/descriptions';
 import { cleanBody } from '../../shared/utils';
 
 export const getAllDescription: INodeProperties[] = [
-	{
-		...returnAllDescription,
-		displayOptions: {
-			show: {
-				resource: ['request'],
-				operation: ['getAll'],
-			},
-		},
-	},
 	{
 		...pageDescription,
 		displayOptions: {
 			show: {
 				resource: ['request'],
 				operation: ['getAll'],
-				returnAll: [false],
 			},
 		},
 	},
@@ -67,45 +54,37 @@ export async function execute(
 	index: number,
 ): Promise<INodeExecutionData[]> {
 	const returnData: INodeExecutionData[] = [];
-	const returnAll = this.getNodeParameter('returnAll', index, false) as boolean;
+	const page = this.getNodeParameter('page', index, 0) as number;
 	const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
 
-	let responseData;
-
-	const bodyBase: IDataObject = {
+	const body: IDataObject = cleanBody({ 
+		page,
 		...additionalFields,
-	};
-
-	if (returnAll) {
-		// Fetch all pages
-		responseData = await requestManagementApiRequestWithPagination.call(
-			this,
-			'/request/list',
-			bodyBase,
-			'data',
-		);
-	} else {
-		// Fetch single page
-		const page = this.getNodeParameter('page', index, 0) as number;
-		const body: IDataObject = cleanBody({ ...bodyBase, page });
-		const response = await requestManagementApiRequest.call(this, 'POST', '/request/list', body);
+	});
+	
+	const response = await requestManagementApiRequest.call(this, 'POST', '/request/list', body);
+	
+	// Handle response structure: { code: 1, message: "", data: {...} }
+	// Need to test what field contains the requests array
+	if (response.code === 1) {
+		// Check different possible response fields
+		const responseData = response.requests || response.data || response;
 		
-		// Handle response structure: { code: 200, message: "Success", data: [...] }
-		if (response.code === 200 && response.data) {
-			responseData = response.data;
-		} else {
-			throw new Error(`API Error: ${response.message || 'Unknown error'}`);
-		}
-	}
-
-	// Process response data
-	if (Array.isArray(responseData)) {
-		responseData.forEach((item) => {
+		if (Array.isArray(responseData)) {
+			responseData.forEach((item) => {
+				returnData.push({
+					json: item,
+					pairedItem: index,
+				});
+			});
+		} else if (responseData && typeof responseData === 'object') {
 			returnData.push({
-				json: item,
+				json: responseData as IDataObject,
 				pairedItem: index,
 			});
-		});
+		}
+	} else {
+		throw new Error(`API Error: ${response.message || 'Unknown error'}`);
 	}
 
 	return returnData;

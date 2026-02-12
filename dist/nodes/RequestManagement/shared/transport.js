@@ -16,7 +16,7 @@ async function requestManagementApiRequest(method, endpoint, body = {}) {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        form: requestBody,
+        body: requestBody,
     };
     return await this.helpers.httpRequest(options);
 }

@@ -7,21 +7,11 @@ const descriptions_1 = require("../../shared/descriptions");
 const utils_1 = require("../../shared/utils");
 exports.getAllDescription = [
     {
-        ...descriptions_1.returnAllDescription,
-        displayOptions: {
-            show: {
-                resource: ['request'],
-                operation: ['getAll'],
-            },
-        },
-    },
-    {
         ...descriptions_1.pageDescription,
         displayOptions: {
             show: {
                 resource: ['request'],
                 operation: ['getAll'],
-                returnAll: [false],
             },
         },
     },
@@ -57,33 +47,32 @@ exports.getAllDescription = [
 ];
 async function execute(index) {
     const returnData = [];
-    const returnAll = this.getNodeParameter('returnAll', index, false);
+    const page = this.getNodeParameter('page', index, 0);
     const additionalFields = this.getNodeParameter('additionalFields', index, {});
-    let responseData;
-    const bodyBase = {
+    const body = (0, utils_1.cleanBody)({
+        page,
         ...additionalFields,
-    };
-    if (returnAll) {
-        responseData = await transport_1.requestManagementApiRequestWithPagination.call(this, '/request/list', bodyBase, 'data');
-    }
-    else {
-        const page = this.getNodeParameter('page', index, 0);
-        const body = (0, utils_1.cleanBody)({ ...bodyBase, page });
-        const response = await transport_1.requestManagementApiRequest.call(this, 'POST', '/request/list', body);
-        if (response.code === 200 && response.data) {
-            responseData = response.data;
+    });
+    const response = await transport_1.requestManagementApiRequest.call(this, 'POST', '/request/list', body);
+    if (response.code === 1) {
+        const responseData = response.requests || response.data || response;
+        if (Array.isArray(responseData)) {
+            responseData.forEach((item) => {
+                returnData.push({
+                    json: item,
+                    pairedItem: index,
+                });
+            });
         }
-        else {
-            throw new Error(`API Error: ${response.message || 'Unknown error'}`);
-        }
-    }
-    if (Array.isArray(responseData)) {
-        responseData.forEach((item) => {
+        else if (responseData && typeof responseData === 'object') {
             returnData.push({
-                json: item,
+                json: responseData,
                 pairedItem: index,
             });
-        });
+        }
+    }
+    else {
+        throw new Error(`API Error: ${response.message || 'Unknown error'}`);
     }
     return returnData;
 }
