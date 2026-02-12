@@ -10,26 +10,6 @@ import { groupIdDescription } from '../../shared/descriptions';
 
 export const getDescription: INodeProperties[] = [
 	{
-		displayName: 'Operation',
-		name: 'operation',
-		type: 'options',
-		noDataExpression: true,
-		displayOptions: {
-			show: {
-				resource: ['group'],
-			},
-		},
-		options: [
-			{
-				name: 'Get',
-				value: 'get',
-				description: 'Get a group by ID',
-				action: 'Get a group',
-			},
-		],
-		default: 'get',
-	},
-	{
 		...groupIdDescription,
 		displayOptions: {
 			show: {

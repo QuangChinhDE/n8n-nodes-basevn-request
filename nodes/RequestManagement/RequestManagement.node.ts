@@ -11,15 +11,15 @@ import * as request from './resources/request';
 
 export class RequestManagement implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Request Management',
+		displayName: 'BaseVN Request Public API',
 		name: 'requestManagement',
 		icon: 'file:../../icons/request.svg',
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Interact with Request Management API',
+		description: 'Interact with BaseVN Request Public API',
 		defaults: {
-			name: 'Request Management',
+			name: 'BaseVN Request Public API',
 		},
 		usableAsTool: true,
 		inputs: [NodeConnectionTypes.Main],
@@ -57,20 +57,22 @@ export class RequestManagement implements INodeType {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
 		const resource = this.getNodeParameter('resource', 0) as string;
-		const operation = this.getNodeParameter('operation', 0) as string;
 
 		for (let i = 0; i < items.length; i++) {
 			try {
 				let responseData: INodeExecutionData[] = [];
 
 				if (resource === 'group') {
+					const operation = this.getNodeParameter('operation', i) as string;
+					
 					if (operation === 'get') {
 						responseData = await group.get.execute.call(this, i);
 					} else if (operation === 'getAll') {
 						responseData = await group.getAll.execute.call(this, i);
 					}
 				} else if (resource === 'request') {
-					const subResource = this.getNodeParameter('subResource', 0, 'request') as string;
+					const subResource = this.getNodeParameter('subResource', i, 'request') as string;
+					const operation = this.getNodeParameter('operation', i) as string;
 					
 					if (subResource === 'direct') {
 						if (operation === 'createDirect') {

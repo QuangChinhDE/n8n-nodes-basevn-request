@@ -1,7 +1,7 @@
 import type { IExecuteFunctions, IHttpRequestMethods, IDataObject } from 'n8n-workflow';
 
 /**
- * Make an API request to Request Management API
+ * Make an API request to BaseVN Request Public API
  * All requests use POST method and form-urlencoded content type
  */
 export async function requestManagementApiRequest(

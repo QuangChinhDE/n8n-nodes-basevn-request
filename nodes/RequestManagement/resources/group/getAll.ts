@@ -13,26 +13,6 @@ import { cleanBody } from '../../shared/utils';
 
 export const getAllDescription: INodeProperties[] = [
 	{
-		displayName: 'Operation',
-		name: 'operation',
-		type: 'options',
-		noDataExpression: true,
-		displayOptions: {
-			show: {
-				resource: ['group'],
-			},
-		},
-		options: [
-			{
-				name: 'Get Many',
-				value: 'getAll',
-				description: 'Get many groups',
-				action: 'Get many groups',
-			},
-		],
-		default: 'getAll',
-	},
-	{
 		...returnAllDescription,
 		displayOptions: {
 			show: {

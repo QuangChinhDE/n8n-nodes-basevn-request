@@ -40,15 +40,15 @@ const request = __importStar(require("./resources/request"));
 class RequestManagement {
     constructor() {
         this.description = {
-            displayName: 'Request Management',
+            displayName: 'BaseVN Request Public API',
             name: 'requestManagement',
             icon: 'file:../../icons/request.svg',
             group: ['transform'],
             version: 1,
             subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-            description: 'Interact with Request Management API',
+            description: 'Interact with BaseVN Request Public API',
             defaults: {
-                name: 'Request Management',
+                name: 'BaseVN Request Public API',
             },
             usableAsTool: true,
             inputs: [n8n_workflow_1.NodeConnectionTypes.Main],
@@ -86,11 +86,11 @@ class RequestManagement {
         const items = this.getInputData();
         const returnData = [];
         const resource = this.getNodeParameter('resource', 0);
-        const operation = this.getNodeParameter('operation', 0);
         for (let i = 0; i < items.length; i++) {
             try {
                 let responseData = [];
                 if (resource === 'group') {
+                    const operation = this.getNodeParameter('operation', i);
                     if (operation === 'get') {
                         responseData = await group.get.execute.call(this, i);
                     }
@@ -99,7 +99,8 @@ class RequestManagement {
                     }
                 }
                 else if (resource === 'request') {
-                    const subResource = this.getNodeParameter('subResource', 0, 'request');
+                    const subResource = this.getNodeParameter('subResource', i, 'request');
+                    const operation = this.getNodeParameter('operation', i);
                     if (subResource === 'direct') {
                         if (operation === 'createDirect') {
                             responseData = await request.createDirect.execute.call(this, i);

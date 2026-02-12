@@ -9,7 +9,7 @@ import type {
 export class RequestManagementApi implements ICredentialType {
 	name = 'requestManagementApi';
 
-	displayName = 'Request Management API';
+	displayName = 'BaseVN Request Public API';
 
 	icon: Icon = 'file:../icons/request.svg';
 

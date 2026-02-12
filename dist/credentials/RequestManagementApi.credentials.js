@@ -4,7 +4,7 @@ exports.RequestManagementApi = void 0;
 class RequestManagementApi {
     constructor() {
         this.name = 'requestManagementApi';
-        this.displayName = 'Request Management API';
+        this.displayName = 'BaseVN Request Public API';
         this.icon = 'file:../icons/request.svg';
         this.documentationUrl = 'https://request.{domain}/extapi/v1';
         this.properties = [

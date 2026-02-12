@@ -4,19 +4,6 @@ import * as getAll from './getAll';
 
 export const description: INodeProperties[] = [
 	{
-		displayName: 'Resource',
-		name: 'resource',
-		type: 'options',
-		noDataExpression: true,
-		options: [
-			{
-				name: 'Group',
-				value: 'group',
-			},
-		],
-		default: 'group',
-	},
-	{
 		displayName: 'Operation',
 		name: 'operation',
 		type: 'options',
@@ -28,7 +15,7 @@ export const description: INodeProperties[] = [
 		},
 		options: [
 			{
-				name: 'Get Detail of Group Request by ID',
+				name: 'Get',
 				value: 'get',
 				action: 'Get detail of group request by ID',
 			},

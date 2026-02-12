@@ -40,19 +40,6 @@ const getAll = __importStar(require("./getAll"));
 exports.getAll = getAll;
 exports.description = [
     {
-        displayName: 'Resource',
-        name: 'resource',
-        type: 'options',
-        noDataExpression: true,
-        options: [
-            {
-                name: 'Group',
-                value: 'group',
-            },
-        ],
-        default: 'group',
-    },
-    {
         displayName: 'Operation',
         name: 'operation',
         type: 'options',
@@ -64,7 +51,7 @@ exports.description = [
         },
         options: [
             {
-                name: 'Get Detail of Group Request by ID',
+                name: 'Get',
                 value: 'get',
                 action: 'Get detail of group request by ID',
             },

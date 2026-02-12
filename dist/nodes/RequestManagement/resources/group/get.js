@@ -7,26 +7,6 @@ const utils_1 = require("../../shared/utils");
 const descriptions_1 = require("../../shared/descriptions");
 exports.getDescription = [
     {
-        displayName: 'Operation',
-        name: 'operation',
-        type: 'options',
-        noDataExpression: true,
-        displayOptions: {
-            show: {
-                resource: ['group'],
-            },
-        },
-        options: [
-            {
-                name: 'Get',
-                value: 'get',
-                description: 'Get a group by ID',
-                action: 'Get a group',
-            },
-        ],
-        default: 'get',
-    },
-    {
         ...descriptions_1.groupIdDescription,
         displayOptions: {
             show: {
