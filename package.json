@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-basevn-request",
-	"version": "0.2.10",
+	"version": "0.2.11",
 	"description": "n8n node for BaseVN - App Request integration",
 	"license": "MIT",
 	"homepage": "",
