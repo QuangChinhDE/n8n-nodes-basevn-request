@@ -118,8 +118,8 @@ exports.createCustomDescription = [
                         name: 'name',
                         type: 'string',
                         default: '',
-                        placeholder: 'e.g., custom_so_luong_thiet_bi',
-                        description: 'Name of the custom field (must start with custom_)',
+                        placeholder: 'e.g., so_luong_thiet_bi, tong_chi_phi',
+                        description: 'Name of the custom field ("custom_" prefix will be added automatically)',
                     },
                     {
                         displayName: 'Field Value',
@@ -145,7 +145,8 @@ async function execute(index) {
     if (customFieldsData.fields && Array.isArray(customFieldsData.fields)) {
         for (const field of customFieldsData.fields) {
             if (field.name && field.value) {
-                customFields[field.name] = field.value;
+                const fieldName = field.name.startsWith('custom_') ? field.name : `custom_${field.name}`;
+                customFields[fieldName] = field.value;
             }
         }
     }
@@ -159,13 +160,15 @@ async function execute(index) {
     });
     const response = await transport_1.requestManagementApiRequest.call(this, 'POST', '/request/create', body);
     if (response.code === 1) {
+        const result = (0, utils_1.processResponse)(response, '');
         returnData.push({
-            json: (0, utils_1.processResponse)(response, ''),
+            json: result,
             pairedItem: index,
         });
     }
     else {
-        throw new Error(`API Error: ${response.message || 'Unknown error'}`);
+        const errorMsg = response.message || JSON.stringify(response) || 'Unknown error';
+        throw new Error(`API Error: ${errorMsg}`);
     }
     return returnData;
 }

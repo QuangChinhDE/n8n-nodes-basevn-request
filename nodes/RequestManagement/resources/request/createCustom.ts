@@ -121,8 +121,8 @@ export const createCustomDescription: INodeProperties[] = [
 						name: 'name',
 						type: 'string',
 						default: '',
-						placeholder: 'e.g., custom_so_luong_thiet_bi',
-						description: 'Name of the custom field (must start with custom_)',
+						placeholder: 'e.g., so_luong_thiet_bi, tong_chi_phi',
+						description: 'Name of the custom field ("custom_" prefix will be added automatically)',
 					},
 					{
 						displayName: 'Field Value',
@@ -156,11 +156,13 @@ export async function execute(
 	const customFieldsData = this.getNodeParameter('customFields', index, {}) as IDataObject;
 	const customFields: IDataObject = {};
 	
-	// Process custom fields from fixedCollection
+	// Process custom fields from fixedCollection and auto-add custom_ prefix
 	if (customFieldsData.fields && Array.isArray(customFieldsData.fields)) {
 		for (const field of customFieldsData.fields as Array<{name: string; value: string}>) {
 			if (field.name && field.value) {
-				customFields[field.name] = field.value;
+				// Auto-add "custom_" prefix if not already present
+				const fieldName = field.name.startsWith('custom_') ? field.name : `custom_${field.name}`;
+				customFields[fieldName] = field.value;
 			}
 		}
 	}
@@ -184,13 +186,16 @@ export async function execute(
 
 	// Check if API call was successful (code: 1 for BaseVN API)
 	if (response.code === 1) {
-		// Return full response
+		// Return full response with all fields
+		const result = processResponse(response, '');
 		returnData.push({
-			json: processResponse(response, ''),
+			json: result,
 			pairedItem: index,
 		});
 	} else {
-		throw new Error(`API Error: ${response.message || 'Unknown error'}`);
+		// Provide more detailed error message
+		const errorMsg = response.message || JSON.stringify(response) || 'Unknown error';
+		throw new Error(`API Error: ${errorMsg}`);
 	}
 
 	return returnData;
