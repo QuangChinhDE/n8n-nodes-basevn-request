@@ -44,24 +44,40 @@ exports.getAllDescription = [
             },
         ],
     },
+    {
+        ...descriptions_1.requestListSelectorDescription,
+        displayOptions: {
+            show: {
+                resource: ['request'],
+                operation: ['getAll'],
+            },
+        },
+    },
 ];
 async function execute(index) {
     const returnData = [];
     const page = this.getNodeParameter('page', index, 0);
     const additionalFields = this.getNodeParameter('additionalFields', index, {});
+    const selector = this.getNodeParameter('responseSelector', index, '');
     const body = (0, utils_1.cleanBody)({
         page,
         ...additionalFields,
     });
     const response = await transport_1.requestManagementApiRequest.call(this, 'POST', '/request/list', body);
-    if (response.code === 1 && response.requests) {
-        const responseData = response.requests;
-        if (Array.isArray(responseData)) {
-            responseData.forEach((item) => {
+    if (response.code === 1) {
+        const result = (0, utils_1.processResponse)(response, selector);
+        if (Array.isArray(result)) {
+            result.forEach((item) => {
                 returnData.push({
                     json: item,
                     pairedItem: index,
                 });
+            });
+        }
+        else {
+            returnData.push({
+                json: result,
+                pairedItem: index,
             });
         }
     }

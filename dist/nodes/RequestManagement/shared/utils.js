@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.snakeToCamel = snakeToCamel;
 exports.cleanBody = cleanBody;
 exports.handleApiError = handleApiError;
+exports.processResponse = processResponse;
 function snakeToCamel(obj) {
     const newObj = {};
     for (const key in obj) {
@@ -27,5 +28,14 @@ function handleApiError(error) {
         return `API Error: ${error.response.status} - ${error.response.statusText || 'Unknown error'}`;
     }
     return error.message || 'Unknown error occurred';
+}
+function processResponse(response, selector) {
+    if (selector && selector.trim() !== '') {
+        if (response[selector]) {
+            return response[selector];
+        }
+        throw new Error(`Selector field '${selector}' not found in response. Available fields: ${Object.keys(response).join(', ')}`);
+    }
+    return response;
 }
 //# sourceMappingURL=utils.js.map

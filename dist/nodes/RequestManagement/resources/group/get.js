@@ -15,19 +15,40 @@ exports.getDescription = [
             },
         },
     },
+    {
+        ...descriptions_1.groupGetSelectorDescription,
+        displayOptions: {
+            show: {
+                resource: ['group'],
+                operation: ['get'],
+            },
+        },
+    },
 ];
 async function execute(index) {
     const returnData = [];
     const groupId = this.getNodeParameter('groupId', index);
+    const selector = this.getNodeParameter('responseSelector', index, '');
     const body = (0, utils_1.cleanBody)({
         id: groupId,
     });
     const response = await transport_1.requestManagementApiRequest.call(this, 'POST', '/group/get', body);
-    if (response.code === 1 && response.group) {
-        returnData.push({
-            json: response.group,
-            pairedItem: index,
-        });
+    if (response.code === 1) {
+        const result = (0, utils_1.processResponse)(response, selector);
+        if (Array.isArray(result)) {
+            result.forEach((item) => {
+                returnData.push({
+                    json: item,
+                    pairedItem: index,
+                });
+            });
+        }
+        else {
+            returnData.push({
+                json: result,
+                pairedItem: index,
+            });
+        }
     }
     else {
         throw new Error(`API Error: ${response.message || 'Unknown error'}`);

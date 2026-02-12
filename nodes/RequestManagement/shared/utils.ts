@@ -36,3 +36,20 @@ export function handleApiError(error: Error & { response?: { status: number; sta
 	}
 	return error.message || 'Unknown error occurred';
 }
+
+/**
+ * Process API response - return full response or selected field
+ */
+export function processResponse(response: IDataObject, selector?: string): IDataObject {
+	// If selector is specified, return only that field
+	if (selector && selector.trim() !== '') {
+		if (response[selector]) {
+			return response[selector] as IDataObject;
+		}
+		// If selector doesn't exist, throw error
+		throw new Error(`Selector field '${selector}' not found in response. Available fields: ${Object.keys(response).join(', ')}`);
+	}
+	
+	// No selector - return full response including code, message, data, etc.
+	return response;
+}

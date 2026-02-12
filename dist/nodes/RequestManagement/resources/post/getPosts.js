@@ -37,29 +37,38 @@ exports.getPostsDescription = [
             },
         ],
     },
+    {
+        ...descriptions_1.postLoadSelectorDescription, displayOptions: {
+            show: {
+                resource: ['request'],
+                operation: ['getPosts'],
+            },
+        },
+    },
 ];
 async function execute(index) {
     const returnData = [];
     const requestId = this.getNodeParameter('requestId', index);
     const additionalFields = this.getNodeParameter('additionalFields', index, {});
+    const selector = this.getNodeParameter('responseSelector', index, '');
     const body = (0, utils_1.cleanBody)({
-        request_id: requestId,
+        id: requestId,
         ...additionalFields,
     });
     const response = await transport_1.requestManagementApiRequest.call(this, 'POST', '/request/post/load', body);
-    if (response.code === 200) {
-        const data = (response.data || response);
-        if (data.posts && Array.isArray(data.posts)) {
-            data.posts.forEach((post) => {
+    if (response.code === 1) {
+        const result = (0, utils_1.processResponse)(response, selector);
+        if (Array.isArray(result)) {
+            result.forEach((item) => {
                 returnData.push({
-                    json: post,
+                    json: item,
                     pairedItem: index,
                 });
             });
         }
         else {
             returnData.push({
-                json: data,
+                json: result,
                 pairedItem: index,
             });
         }

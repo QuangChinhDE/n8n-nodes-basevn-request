@@ -15,16 +15,26 @@ exports.getAllDescription = [
             },
         },
     },
+    {
+        ...descriptions_1.groupListSelectorDescription,
+        displayOptions: {
+            show: {
+                resource: ['group'],
+                operation: ['getAll'],
+            },
+        },
+    },
 ];
 async function execute(index) {
     const returnData = [];
     const page = this.getNodeParameter('page', index, 0);
+    const selector = this.getNodeParameter('responseSelector', index, '');
     const body = (0, utils_1.cleanBody)({ page });
     const response = await transport_1.requestManagementApiRequest.call(this, 'POST', '/group/list', body);
-    if (response.code === 1 && response.groups) {
-        const responseData = response.groups;
-        if (Array.isArray(responseData)) {
-            responseData.forEach((item) => {
+    if (response.code === 1) {
+        const result = (0, utils_1.processResponse)(response, selector);
+        if (Array.isArray(result)) {
+            result.forEach((item) => {
                 returnData.push({
                     json: item,
                     pairedItem: index,
@@ -33,7 +43,7 @@ async function execute(index) {
         }
         else {
             returnData.push({
-                json: responseData,
+                json: result,
                 pairedItem: index,
             });
         }

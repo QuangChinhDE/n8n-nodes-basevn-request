@@ -5,8 +5,8 @@ import type {
 	INodeProperties,
 } from 'n8n-workflow';
 import { requestManagementApiRequest } from '../../shared/transport';
-import { cleanBody } from '../../shared/utils';
-import { postIdDescription } from '../../shared/descriptions';
+import { cleanBody, processResponse } from '../../shared/utils';
+import { postIdDescription, commentLoadSelectorDescription } from '../../shared/descriptions';
 
 export const getCommentsDescription: INodeProperties[] = [
 	{
@@ -57,6 +57,13 @@ export const getCommentsDescription: INodeProperties[] = [
 			},
 		],
 	},
+	{
+		...commentLoadSelectorDescription,		displayOptions: {
+			show: {
+				resource: ['request'],
+				operation: ['getComments'],
+			},		},
+	},
 ];
 
 export async function execute(
@@ -65,11 +72,12 @@ export async function execute(
 ): Promise<INodeExecutionData[]> {
 	const returnData: INodeExecutionData[] = [];
 
-	const postId = this.getNodeParameter('postId', index) as string;
+	const postHid = this.getNodeParameter('postHid', index) as string;
 	const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
+	const selector = this.getNodeParameter('responseSelector', index, '') as string;
 
 	const body: IDataObject = cleanBody({
-		post_id: postId,
+		hid: postHid,
 		...additionalFields,
 	});
 
@@ -80,20 +88,22 @@ export async function execute(
 		body,
 	);
 
-	// Handle response structure: { code: 200, message: "Success", data: {...} }
-	if (response.code === 200) {
-		const data = (response.data || response) as IDataObject;
-		// API returns max 10 comments per request
-		if (data.comments && Array.isArray(data.comments)) {
-			(data.comments as IDataObject[]).forEach((comment: IDataObject) => {
+	// Check if API call was successful
+	if (response.code === 1) {
+		// Process response based on selector
+		const result = processResponse(response, selector);
+		
+		// If result is an array, return each item separately
+		if (Array.isArray(result)) {
+			result.forEach((item) => {
 				returnData.push({
-					json: comment,
+					json: item as IDataObject,
 					pairedItem: index,
 				});
 			});
 		} else {
 			returnData.push({
-				json: data,
+				json: result,
 				pairedItem: index,
 			});
 		}

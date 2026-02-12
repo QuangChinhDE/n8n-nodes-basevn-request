@@ -54,29 +54,38 @@ exports.getCommentsDescription = [
             },
         ],
     },
+    {
+        ...descriptions_1.commentLoadSelectorDescription, displayOptions: {
+            show: {
+                resource: ['request'],
+                operation: ['getComments'],
+            },
+        },
+    },
 ];
 async function execute(index) {
     const returnData = [];
-    const postId = this.getNodeParameter('postId', index);
+    const postHid = this.getNodeParameter('postHid', index);
     const additionalFields = this.getNodeParameter('additionalFields', index, {});
+    const selector = this.getNodeParameter('responseSelector', index, '');
     const body = (0, utils_1.cleanBody)({
-        post_id: postId,
+        hid: postHid,
         ...additionalFields,
     });
     const response = await transport_1.requestManagementApiRequest.call(this, 'POST', '/request/comment/load', body);
-    if (response.code === 200) {
-        const data = (response.data || response);
-        if (data.comments && Array.isArray(data.comments)) {
-            data.comments.forEach((comment) => {
+    if (response.code === 1) {
+        const result = (0, utils_1.processResponse)(response, selector);
+        if (Array.isArray(result)) {
+            result.forEach((item) => {
                 returnData.push({
-                    json: comment,
+                    json: item,
                     pairedItem: index,
                 });
             });
         }
         else {
             returnData.push({
-                json: data,
+                json: result,
                 pairedItem: index,
             });
         }

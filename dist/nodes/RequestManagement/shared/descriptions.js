@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.returnAllDescription = exports.pageDescription = exports.postIdDescription = exports.requestIdDescription = exports.groupIdDescription = void 0;
+exports.commentLoadSelectorDescription = exports.postLoadSelectorDescription = exports.requestCustomTableSelectorDescription = exports.requestGetSelectorDescription = exports.requestListSelectorDescription = exports.groupGetSelectorDescription = exports.groupListSelectorDescription = exports.returnAllDescription = exports.pageDescription = exports.postIdDescription = exports.requestIdDescription = exports.groupIdDescription = void 0;
 exports.groupIdDescription = {
     displayName: 'Group ID',
     name: 'groupId',
@@ -18,12 +18,12 @@ exports.requestIdDescription = {
     description: 'The ID of the request',
 };
 exports.postIdDescription = {
-    displayName: 'Post ID',
-    name: 'postId',
+    displayName: 'Post HID',
+    name: 'postHid',
     type: 'string',
     default: '',
     required: true,
-    description: 'The ID of the post',
+    description: 'The HID of the post (hid field from post object)',
 };
 exports.pageDescription = {
     displayName: 'Page',
@@ -38,5 +38,92 @@ exports.returnAllDescription = {
     type: 'boolean',
     default: false,
     description: 'Whether to return all results or only up to a given limit',
+};
+exports.groupListSelectorDescription = {
+    displayName: 'Response Selector',
+    name: 'responseSelector',
+    type: 'options',
+    options: [
+        { name: 'Full Response', value: '' },
+        { name: 'Groups Array', value: 'groups' },
+    ],
+    default: '',
+    description: 'Select which field to return from response. Leave empty for full response.',
+};
+exports.groupGetSelectorDescription = {
+    displayName: 'Response Selector',
+    name: 'responseSelector',
+    type: 'options',
+    options: [
+        { name: 'Full Response', value: '' },
+        { name: 'Group Object', value: 'group' },
+    ],
+    default: '',
+    description: 'Select which field to return from response. Leave empty for full response.',
+};
+exports.requestListSelectorDescription = {
+    displayName: 'Response Selector',
+    name: 'responseSelector',
+    type: 'options',
+    options: [
+        { name: 'Full Response', value: '' },
+        { name: 'Requests Array', value: 'requests' },
+    ],
+    default: '',
+    description: 'Select which field to return from response. Leave empty for full response.',
+};
+exports.requestGetSelectorDescription = {
+    displayName: 'Response Selector',
+    name: 'responseSelector',
+    type: 'options',
+    options: [
+        { name: 'Full Response', value: '' },
+        { name: 'Group Object', value: 'group' },
+        { name: 'Request Object', value: 'request' },
+        { name: 'Extra Approvers', value: 'extra_approvers' },
+        { name: 'Approver Followings', value: 'approver_followings' },
+        { name: 'Files', value: 'files' },
+        { name: 'E-Sign Requests', value: 'esign_requests' },
+    ],
+    default: '',
+    description: 'Select which field to return from response. Leave empty for full response.',
+};
+exports.requestCustomTableSelectorDescription = {
+    displayName: 'Response Selector',
+    name: 'responseSelector',
+    type: 'options',
+    options: [
+        { name: 'Full Response', value: '' },
+        { name: 'Group Object', value: 'group' },
+        { name: 'Request Object', value: 'request' },
+        { name: 'Custom Table', value: 'custom_table' },
+        { name: 'E-Sign Requests', value: 'esign_requests' },
+    ],
+    default: '',
+    description: 'Select which field to return from response. Leave empty for full response.',
+};
+exports.postLoadSelectorDescription = {
+    displayName: 'Response Selector',
+    name: 'responseSelector',
+    type: 'options',
+    options: [
+        { name: 'Full Response', value: '' },
+        { name: 'Posts Array', value: 'posts' },
+        { name: 'Origin Request', value: 'origin' },
+    ],
+    default: '',
+    description: 'Select which field to return from response. Leave empty for full response.',
+};
+exports.commentLoadSelectorDescription = {
+    displayName: 'Response Selector',
+    name: 'responseSelector',
+    type: 'options',
+    options: [
+        { name: 'Full Response', value: '' },
+        { name: 'Comments Array', value: 'comments' },
+        { name: 'Origin Post', value: 'origin' },
+    ],
+    default: '',
+    description: 'Select which field to return from response. Leave empty for full response.',
 };
 //# sourceMappingURL=descriptions.js.map

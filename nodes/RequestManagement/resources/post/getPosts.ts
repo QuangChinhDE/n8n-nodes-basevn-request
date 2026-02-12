@@ -5,8 +5,8 @@ import type {
 	INodeProperties,
 } from 'n8n-workflow';
 import { requestManagementApiRequest } from '../../shared/transport';
-import { cleanBody } from '../../shared/utils';
-import { requestIdDescription } from '../../shared/descriptions';
+import { cleanBody, processResponse } from '../../shared/utils';
+import { requestIdDescription, postLoadSelectorDescription } from '../../shared/descriptions';
 
 export const getPostsDescription: INodeProperties[] = [
 	{
@@ -40,6 +40,13 @@ export const getPostsDescription: INodeProperties[] = [
 			},
 		],
 	},
+	{
+		...postLoadSelectorDescription,		displayOptions: {
+			show: {
+				resource: ['request'],
+				operation: ['getPosts'],
+			},		},
+	},
 ];
 
 export async function execute(
@@ -50,9 +57,10 @@ export async function execute(
 
 	const requestId = this.getNodeParameter('requestId', index) as string;
 	const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
+	const selector = this.getNodeParameter('responseSelector', index, '') as string;
 
 	const body: IDataObject = cleanBody({
-		request_id: requestId,
+		id: requestId,
 		...additionalFields,
 	});
 
@@ -63,20 +71,22 @@ export async function execute(
 		body,
 	);
 
-	// Handle response structure: { code: 200, message: "Success", data: {...} }
-	if (response.code === 200) {
-		const data = (response.data || response) as IDataObject;
-		// API returns max 10 posts per request
-		if (data.posts && Array.isArray(data.posts)) {
-			(data.posts as IDataObject[]).forEach((post: IDataObject) => {
+	// Check if API call was successful
+	if (response.code === 1) {
+		// Process response based on selector
+		const result = processResponse(response, selector);
+		
+		// If result is an array, return each item separately
+		if (Array.isArray(result)) {
+			result.forEach((item) => {
 				returnData.push({
-					json: post,
+					json: item as IDataObject,
 					pairedItem: index,
 				});
 			});
 		} else {
 			returnData.push({
-				json: data,
+				json: result,
 				pairedItem: index,
 			});
 		}

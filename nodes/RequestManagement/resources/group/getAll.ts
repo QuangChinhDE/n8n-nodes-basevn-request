@@ -5,12 +5,21 @@ import type {
 	INodeProperties,
 } from 'n8n-workflow';
 import { requestManagementApiRequest } from '../../shared/transport';
-import { pageDescription } from '../../shared/descriptions';
-import { cleanBody } from '../../shared/utils';
+import { pageDescription, groupListSelectorDescription } from '../../shared/descriptions';
+import { cleanBody, processResponse } from '../../shared/utils';
 
 export const getAllDescription: INodeProperties[] = [
 	{
 		...pageDescription,
+		displayOptions: {
+			show: {
+				resource: ['group'],
+				operation: ['getAll'],
+			},
+		},
+	},
+	{
+		...groupListSelectorDescription,
 		displayOptions: {
 			show: {
 				resource: ['group'],
@@ -26,26 +35,28 @@ export async function execute(
 ): Promise<INodeExecutionData[]> {
 	const returnData: INodeExecutionData[] = [];
 	const page = this.getNodeParameter('page', index, 0) as number;
+	const selector = this.getNodeParameter('responseSelector', index, '') as string;
 	
 	const body: IDataObject = cleanBody({ page });
 	const response = await requestManagementApiRequest.call(this, 'POST', '/group/list', body);
 	
-	// Handle response structure: { code: 1, message: "", data: null, groups: [...] }
-	// code: 1 means success in BaseVN API
-	if (response.code === 1 && response.groups) {
-		const responseData = response.groups;
-		// Process response data
-		if (Array.isArray(responseData)) {
-			responseData.forEach((item) => {
+	// Check if API call was successful
+	if (response.code === 1) {
+		// Process response based on selector
+		const result = processResponse(response, selector);
+		
+		// If result is an array, return each item separately
+		if (Array.isArray(result)) {
+			result.forEach((item) => {
 				returnData.push({
-					json: item,
+					json: item as IDataObject,
 					pairedItem: index,
 				});
 			});
 		} else {
-			// If response is not an array, return it as a single item
+			// Return as single item
 			returnData.push({
-				json: responseData as IDataObject,
+				json: result,
 				pairedItem: index,
 			});
 		}

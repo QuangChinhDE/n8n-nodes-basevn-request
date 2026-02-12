@@ -23,12 +23,12 @@ export const requestIdDescription: INodeProperties = {
 };
 
 export const postIdDescription: INodeProperties = {
-	displayName: 'Post ID',
-	name: 'postId',
+	displayName: 'Post HID',
+	name: 'postHid',
 	type: 'string',
 	default: '',
 	required: true,
-	description: 'The ID of the post',
+	description: 'The HID of the post (hid field from post object)',
 };
 
 export const pageDescription: INodeProperties = {
@@ -45,4 +45,105 @@ export const returnAllDescription: INodeProperties = {
 	type: 'boolean',
 	default: false,
 	description: 'Whether to return all results or only up to a given limit',
+};
+
+// Selector for Group List endpoint
+export const groupListSelectorDescription: INodeProperties = {
+	displayName: 'Response Selector',
+	name: 'responseSelector',
+	type: 'options',
+	options: [
+		{ name: 'Full Response', value: '' },
+		{ name: 'Groups Array', value: 'groups' },
+	],
+	default: '',
+	description: 'Select which field to return from response. Leave empty for full response.',
+};
+
+// Selector for Group Get endpoint
+export const groupGetSelectorDescription: INodeProperties = {
+	displayName: 'Response Selector',
+	name: 'responseSelector',
+	type: 'options',
+	options: [
+		{ name: 'Full Response', value: '' },
+		{ name: 'Group Object', value: 'group' },
+	],
+	default: '',
+	description: 'Select which field to return from response. Leave empty for full response.',
+};
+
+// Selector for Request List endpoint
+export const requestListSelectorDescription: INodeProperties = {
+	displayName: 'Response Selector',
+	name: 'responseSelector',
+	type: 'options',
+	options: [
+		{ name: 'Full Response', value: '' },
+		{ name: 'Requests Array', value: 'requests' },
+	],
+	default: '',
+	description: 'Select which field to return from response. Leave empty for full response.',
+};
+
+// Selector for Request Get endpoint
+export const requestGetSelectorDescription: INodeProperties = {
+	displayName: 'Response Selector',
+	name: 'responseSelector',
+	type: 'options',
+	options: [
+		{ name: 'Full Response', value: '' },
+		{ name: 'Group Object', value: 'group' },
+		{ name: 'Request Object', value: 'request' },
+		{ name: 'Extra Approvers', value: 'extra_approvers' },
+		{ name: 'Approver Followings', value: 'approver_followings' },
+		{ name: 'Files', value: 'files' },
+		{ name: 'E-Sign Requests', value: 'esign_requests' },
+	],
+	default: '',
+	description: 'Select which field to return from response. Leave empty for full response.',
+};
+
+// Selector for Request Custom Table endpoint
+export const requestCustomTableSelectorDescription: INodeProperties = {
+	displayName: 'Response Selector',
+	name: 'responseSelector',
+	type: 'options',
+	options: [
+		{ name: 'Full Response', value: '' },
+		{ name: 'Group Object', value: 'group' },
+		{ name: 'Request Object', value: 'request' },
+		{ name: 'Custom Table', value: 'custom_table' },
+		{ name: 'E-Sign Requests', value: 'esign_requests' },
+	],
+	default: '',
+	description: 'Select which field to return from response. Leave empty for full response.',
+};
+
+// Selector for Post Load endpoint
+export const postLoadSelectorDescription: INodeProperties = {
+	displayName: 'Response Selector',
+	name: 'responseSelector',
+	type: 'options',
+	options: [
+		{ name: 'Full Response', value: '' },
+		{ name: 'Posts Array', value: 'posts' },
+		{ name: 'Origin Request', value: 'origin' },
+	],
+	default: '',
+	description: 'Select which field to return from response. Leave empty for full response.',
+};
+
+// Selector for Comment Load endpoint
+export const commentLoadSelectorDescription: INodeProperties = {
+	displayName: 'Response Selector',
+	name: 'responseSelector',
+	type: 'options',
+	options: [
+		{ name: 'Full Response', value: '' },
+		{ name: 'Comments Array', value: 'comments' },
+		{ name: 'Origin Post', value: 'origin' },
+	],
+	default: '',
+	description: 'Select which field to return from response. Leave empty for full response.',
 };

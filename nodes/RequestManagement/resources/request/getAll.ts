@@ -5,8 +5,8 @@ import type {
 	INodeProperties,
 } from 'n8n-workflow';
 import { requestManagementApiRequest } from '../../shared/transport';
-import { pageDescription } from '../../shared/descriptions';
-import { cleanBody } from '../../shared/utils';
+import { pageDescription, requestListSelectorDescription } from '../../shared/descriptions';
+import { cleanBody, processResponse } from '../../shared/utils';
 
 export const getAllDescription: INodeProperties[] = [
 	{
@@ -47,6 +47,15 @@ export const getAllDescription: INodeProperties[] = [
 			},
 		],
 	},
+	{
+		...requestListSelectorDescription,
+		displayOptions: {
+			show: {
+				resource: ['request'],
+				operation: ['getAll'],
+			},
+		},
+	},
 ];
 
 export async function execute(
@@ -56,6 +65,7 @@ export async function execute(
 	const returnData: INodeExecutionData[] = [];
 	const page = this.getNodeParameter('page', index, 0) as number;
 	const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
+	const selector = this.getNodeParameter('responseSelector', index, '') as string;
 
 	const body: IDataObject = cleanBody({ 
 		page,
@@ -64,17 +74,23 @@ export async function execute(
 	
 	const response = await requestManagementApiRequest.call(this, 'POST', '/request/list', body);
 	
-	// Handle response structure: { code: 1, message: "", data: null, requests: [...] }
-	// code: 1 means success in BaseVN API
-	if (response.code === 1 && response.requests) {
-		const responseData = response.requests;
+	// Check if API call was successful
+	if (response.code === 1) {
+		// Process response based on selector
+		const result = processResponse(response, selector);
 		
-		if (Array.isArray(responseData)) {
-			responseData.forEach((item) => {
+		// If result is an array, return each item separately
+		if (Array.isArray(result)) {
+			result.forEach((item) => {
 				returnData.push({
-					json: item,
+					json: item as IDataObject,
 					pairedItem: index,
 				});
+			});
+		} else {
+			returnData.push({
+				json: result,
+				pairedItem: index,
 			});
 		}
 	} else {
