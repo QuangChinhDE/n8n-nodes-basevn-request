@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.commentLoadSelectorDescription = exports.postLoadSelectorDescription = exports.requestCustomTableSelectorDescription = exports.requestGetSelectorDescription = exports.requestListSelectorDescription = exports.groupGetSelectorDescription = exports.groupListSelectorDescription = exports.returnAllDescription = exports.pageDescription = exports.postIdDescription = exports.requestIdDescription = exports.groupIdDescription = void 0;
+exports.addFollowerSelectorDescription = exports.commentLoadSelectorDescription = exports.postLoadSelectorDescription = exports.requestCustomTableSelectorDescription = exports.requestGetSelectorDescription = exports.requestListSelectorDescription = exports.groupGetSelectorDescription = exports.groupListSelectorDescription = exports.returnAllDescription = exports.pageDescription = exports.postIdDescription = exports.requestIdDescription = exports.groupIdDescription = void 0;
 exports.groupIdDescription = {
     displayName: 'Group ID',
     name: 'groupId',
@@ -124,6 +124,28 @@ exports.commentLoadSelectorDescription = {
         { name: 'Origin Post', value: 'origin' },
     ],
     default: '',
+    displayOptions: {
+        show: {
+            resource: ['request'],
+            operation: ['getComments'],
+        },
+    },
+    description: 'Select which field to return from response. Leave empty for full response.',
+};
+exports.addFollowerSelectorDescription = {
+    displayName: 'Response Selector',
+    name: 'responseSelector',
+    type: 'options',
+    options: [
+        { name: 'Full Response', value: '' },
+    ],
+    default: '',
+    displayOptions: {
+        show: {
+            resource: ['request'],
+            operation: ['addFollower'],
+        },
+    },
     description: 'Select which field to return from response. Leave empty for full response.',
 };
 //# sourceMappingURL=descriptions.js.map

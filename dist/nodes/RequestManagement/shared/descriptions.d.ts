@@ -11,3 +11,4 @@ export declare const requestGetSelectorDescription: INodeProperties;
 export declare const requestCustomTableSelectorDescription: INodeProperties;
 export declare const postLoadSelectorDescription: INodeProperties;
 export declare const commentLoadSelectorDescription: INodeProperties;
+export declare const addFollowerSelectorDescription: INodeProperties;

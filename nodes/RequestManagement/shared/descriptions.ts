@@ -145,5 +145,29 @@ export const commentLoadSelectorDescription: INodeProperties = {
 		{ name: 'Origin Post', value: 'origin' },
 	],
 	default: '',
+	displayOptions: {
+		show: {
+			resource: ['request'],
+			operation: ['getComments'],
+		},
+	},
+	description: 'Select which field to return from response. Leave empty for full response.',
+};
+
+// Selector for Add Follower endpoint
+export const addFollowerSelectorDescription: INodeProperties = {
+	displayName: 'Response Selector',
+	name: 'responseSelector',
+	type: 'options',
+	options: [
+		{ name: 'Full Response', value: '' },
+	],
+	default: '',
+	displayOptions: {
+		show: {
+			resource: ['request'],
+			operation: ['addFollower'],
+		},
+	},
 	description: 'Select which field to return from response. Leave empty for full response.',
 };
