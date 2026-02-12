@@ -34,10 +34,11 @@ export async function execute(
 
 	const response = await requestManagementApiRequest.call(this, 'POST', '/group/get', body);
 	
-	// Handle response structure: { code: 200, message: "Success", data: {...} }
-	if (response.code === 200 && response.data) {
+	// Handle response structure: { code: 1, message: "", data: null, group: {...} }
+	// code: 1 means success in BaseVN API
+	if (response.code === 1 && response.group) {
 		returnData.push({
-			json: response.data as IDataObject,
+			json: response.group as IDataObject,
 			pairedItem: index,
 		});
 	} else {

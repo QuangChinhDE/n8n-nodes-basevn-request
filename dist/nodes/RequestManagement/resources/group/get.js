@@ -23,9 +23,9 @@ async function execute(index) {
         id: groupId,
     });
     const response = await transport_1.requestManagementApiRequest.call(this, 'POST', '/group/get', body);
-    if (response.code === 200 && response.data) {
+    if (response.code === 1 && response.group) {
         returnData.push({
-            json: response.data,
+            json: response.group,
             pairedItem: index,
         });
     }
