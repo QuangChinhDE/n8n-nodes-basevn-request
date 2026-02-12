@@ -48,17 +48,22 @@ export async function execute(
 		follower_id: followerId,
 	});
 
-	const responseData = await requestManagementApiRequest.call(
+	const response = await requestManagementApiRequest.call(
 		this,
 		'POST',
 		'/request/add.follower',
 		body,
 	);
 
-	returnData.push({
-		json: responseData || { success: true },
-		pairedItem: index,
-	});
+	// Handle response structure: { code: 200, message: "Success", data: {...} }
+	if (response.code === 200) {
+		returnData.push({
+			json: (response.data || response) as IDataObject,
+			pairedItem: index,
+		});
+	} else {
+		throw new Error(`API Error: ${response.message || 'Unknown error'}`);
+	}
 
 	return returnData;
 }

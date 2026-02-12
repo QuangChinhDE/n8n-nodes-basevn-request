@@ -11,15 +11,15 @@ import * as request from './resources/request';
 
 export class RequestManagement implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'BaseVN Request Public API',
+		displayName: 'BaseVN - App Request',
 		name: 'requestManagement',
 		icon: 'file:../../icons/request.svg',
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Interact with BaseVN Request Public API',
+		description: 'Interact with BaseVN - App Request',
 		defaults: {
-			name: 'BaseVN Request Public API',
+			name: 'BaseVN - App Request',
 		},
 		usableAsTool: true,
 		inputs: [NodeConnectionTypes.Main],

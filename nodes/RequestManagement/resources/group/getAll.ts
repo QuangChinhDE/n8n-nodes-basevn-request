@@ -48,14 +48,21 @@ export async function execute(
 			this,
 			'/group/list',
 			{},
-			'data',
+			'groups',
 		);
 	} else {
 		// Fetch single page
 		const page = this.getNodeParameter('page', index, 0) as number;
 		const body: IDataObject = cleanBody({ page });
 		const response = await requestManagementApiRequest.call(this, 'POST', '/group/list', body);
-		responseData = response.data || [];
+		
+		// Handle response structure: { code: 1, message: "", data: null, groups: [...] }
+		// code: 1 means success in BaseVN API
+		if (response.code === 1 && response.groups) {
+			responseData = response.groups;
+		} else {
+			throw new Error(`API Error: ${response.message || 'Unknown error'}`);
+		}
 	}
 
 	// Process response data
@@ -65,6 +72,12 @@ export async function execute(
 				json: item,
 				pairedItem: index,
 			});
+		});
+	} else {
+		// If response is not an array, return it as a single item
+		returnData.push({
+			json: responseData as IDataObject,
+			pairedItem: index,
 		});
 	}
 

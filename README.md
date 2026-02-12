@@ -1,6 +1,6 @@
 # n8n-nodes-basevn-request
 
-n8n community node for [BaseVN Request Public API](https://base.vn) integration.
+n8n community node for [BaseVN - App Request](https://base.vn) integration.
 
 [![NPM Version](https://img.shields.io/npm/v/n8n-nodes-basevn-request)](https://www.npmjs.com/package/n8n-nodes-basevn-request)
 
@@ -20,12 +20,12 @@ Or install via n8n Community Nodes:
 ## Prerequisites
 
 - n8n instance (self-hosted or cloud)
-- Base.vn account with BaseVN Request Public API access
+- Base.vn account with BaseVN - App Request access
 - API access token (`access_token_v2`)
 
 ## Configuration
 
-1. Add new credentials: **BaseVN Request Public API**
+1. Add new credentials: **BaseVN - App Request**
 2. Enter your Base.vn domain (e.g., `example.base.vn`)
 3. Provide your `access_token_v2`
 

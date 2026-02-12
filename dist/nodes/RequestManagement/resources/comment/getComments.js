@@ -63,20 +63,26 @@ async function execute(index) {
         post_id: postId,
         ...additionalFields,
     });
-    const responseData = await transport_1.requestManagementApiRequest.call(this, 'POST', '/request/comment/load', body);
-    if (responseData.comments && Array.isArray(responseData.comments)) {
-        responseData.comments.forEach((comment) => {
+    const response = await transport_1.requestManagementApiRequest.call(this, 'POST', '/request/comment/load', body);
+    if (response.code === 200) {
+        const data = (response.data || response);
+        if (data.comments && Array.isArray(data.comments)) {
+            data.comments.forEach((comment) => {
+                returnData.push({
+                    json: comment,
+                    pairedItem: index,
+                });
+            });
+        }
+        else {
             returnData.push({
-                json: comment,
+                json: data,
                 pairedItem: index,
             });
-        });
+        }
     }
     else {
-        returnData.push({
-            json: responseData,
-            pairedItem: index,
-        });
+        throw new Error(`API Error: ${response.message || 'Unknown error'}`);
     }
     return returnData;
 }

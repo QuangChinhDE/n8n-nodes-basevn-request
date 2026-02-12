@@ -56,26 +56,32 @@ export async function execute(
 		...additionalFields,
 	});
 
-	const responseData = await requestManagementApiRequest.call(
+	const response = await requestManagementApiRequest.call(
 		this,
 		'POST',
 		'/request/post/load',
 		body,
 	);
 
-	// API returns max 10 posts per request
-	if (responseData.posts && Array.isArray(responseData.posts)) {
-		responseData.posts.forEach((post: IDataObject) => {
+	// Handle response structure: { code: 200, message: "Success", data: {...} }
+	if (response.code === 200) {
+		const data = (response.data || response) as IDataObject;
+		// API returns max 10 posts per request
+		if (data.posts && Array.isArray(data.posts)) {
+			(data.posts as IDataObject[]).forEach((post: IDataObject) => {
+				returnData.push({
+					json: post,
+					pairedItem: index,
+				});
+			});
+		} else {
 			returnData.push({
-				json: post,
+				json: data,
 				pairedItem: index,
 			});
-		});
+		}
 	} else {
-		returnData.push({
-			json: responseData,
-			pairedItem: index,
-		});
+		throw new Error(`API Error: ${response.message || 'Unknown error'}`);
 	}
 
 	return returnData;

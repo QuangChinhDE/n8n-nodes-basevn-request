@@ -32,17 +32,22 @@ export async function execute(
 		id: requestId,
 	});
 
-	const responseData = await requestManagementApiRequest.call(
+	const response = await requestManagementApiRequest.call(
 		this,
 		'POST',
 		'/request/custom.table',
 		body,
 	);
 
-	returnData.push({
-		json: responseData,
-		pairedItem: index,
-	});
+	// Handle response structure: { code: 200, message: "Success", data: {...} }
+	if (response.code === 200 && response.data) {
+		returnData.push({
+			json: response.data as IDataObject,
+			pairedItem: index,
+		});
+	} else {
+		throw new Error(`API Error: ${response.message || 'Unknown error'}`);
+	}
 
 	return returnData;
 }

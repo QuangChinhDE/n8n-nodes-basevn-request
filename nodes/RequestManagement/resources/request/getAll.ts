@@ -89,7 +89,13 @@ export async function execute(
 		const page = this.getNodeParameter('page', index, 0) as number;
 		const body: IDataObject = cleanBody({ ...bodyBase, page });
 		const response = await requestManagementApiRequest.call(this, 'POST', '/request/list', body);
-		responseData = response.data || [];
+		
+		// Handle response structure: { code: 200, message: "Success", data: [...] }
+		if (response.code === 200 && response.data) {
+			responseData = response.data;
+		} else {
+			throw new Error(`API Error: ${response.message || 'Unknown error'}`);
+		}
 	}
 
 	// Process response data

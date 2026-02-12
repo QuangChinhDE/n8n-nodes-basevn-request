@@ -72,11 +72,16 @@ async function execute(index) {
         title,
         ...additionalFields,
     });
-    const responseData = await transport_1.requestManagementApiRequest.call(this, 'POST', '/request/create', body);
-    returnData.push({
-        json: responseData || { success: true },
-        pairedItem: index,
-    });
+    const response = await transport_1.requestManagementApiRequest.call(this, 'POST', '/request/create', body);
+    if (response.code === 200) {
+        returnData.push({
+            json: (response.data || response),
+            pairedItem: index,
+        });
+    }
+    else {
+        throw new Error(`API Error: ${response.message || 'Unknown error'}`);
+    }
     return returnData;
 }
 //# sourceMappingURL=createCustom.js.map

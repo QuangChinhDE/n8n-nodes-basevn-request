@@ -31,13 +31,18 @@ async function execute(index) {
     const returnAll = this.getNodeParameter('returnAll', index, false);
     let responseData;
     if (returnAll) {
-        responseData = await transport_1.requestManagementApiRequestWithPagination.call(this, '/group/list', {}, 'data');
+        responseData = await transport_1.requestManagementApiRequestWithPagination.call(this, '/group/list', {}, 'groups');
     }
     else {
         const page = this.getNodeParameter('page', index, 0);
         const body = (0, utils_1.cleanBody)({ page });
         const response = await transport_1.requestManagementApiRequest.call(this, 'POST', '/group/list', body);
-        responseData = response.data || [];
+        if (response.code === 1 && response.groups) {
+            responseData = response.groups;
+        }
+        else {
+            throw new Error(`API Error: ${response.message || 'Unknown error'}`);
+        }
     }
     if (Array.isArray(responseData)) {
         responseData.forEach((item) => {
@@ -45,6 +50,12 @@ async function execute(index) {
                 json: item,
                 pairedItem: index,
             });
+        });
+    }
+    else {
+        returnData.push({
+            json: responseData,
+            pairedItem: index,
         });
     }
     return returnData;

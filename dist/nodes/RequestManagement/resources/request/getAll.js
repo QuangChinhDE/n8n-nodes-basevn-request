@@ -70,7 +70,12 @@ async function execute(index) {
         const page = this.getNodeParameter('page', index, 0);
         const body = (0, utils_1.cleanBody)({ ...bodyBase, page });
         const response = await transport_1.requestManagementApiRequest.call(this, 'POST', '/request/list', body);
-        responseData = response.data || [];
+        if (response.code === 200 && response.data) {
+            responseData = response.data;
+        }
+        else {
+            throw new Error(`API Error: ${response.message || 'Unknown error'}`);
+        }
     }
     if (Array.isArray(responseData)) {
         responseData.forEach((item) => {
