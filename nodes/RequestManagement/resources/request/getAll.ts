@@ -64,11 +64,10 @@ export async function execute(
 	
 	const response = await requestManagementApiRequest.call(this, 'POST', '/request/list', body);
 	
-	// Handle response structure: { code: 1, message: "", data: {...} }
-	// Need to test what field contains the requests array
-	if (response.code === 1) {
-		// Check different possible response fields
-		const responseData = response.requests || response.data || response;
+	// Handle response structure: { code: 1, message: "", data: null, requests: [...] }
+	// code: 1 means success in BaseVN API
+	if (response.code === 1 && response.requests) {
+		const responseData = response.requests;
 		
 		if (Array.isArray(responseData)) {
 			responseData.forEach((item) => {
@@ -76,11 +75,6 @@ export async function execute(
 					json: item,
 					pairedItem: index,
 				});
-			});
-		} else if (responseData && typeof responseData === 'object') {
-			returnData.push({
-				json: responseData as IDataObject,
-				pairedItem: index,
 			});
 		}
 	} else {

@@ -54,20 +54,14 @@ async function execute(index) {
         ...additionalFields,
     });
     const response = await transport_1.requestManagementApiRequest.call(this, 'POST', '/request/list', body);
-    if (response.code === 1) {
-        const responseData = response.requests || response.data || response;
+    if (response.code === 1 && response.requests) {
+        const responseData = response.requests;
         if (Array.isArray(responseData)) {
             responseData.forEach((item) => {
                 returnData.push({
                     json: item,
                     pairedItem: index,
                 });
-            });
-        }
-        else if (responseData && typeof responseData === 'object') {
-            returnData.push({
-                json: responseData,
-                pairedItem: index,
             });
         }
     }
