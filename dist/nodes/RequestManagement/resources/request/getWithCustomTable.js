@@ -11,7 +11,6 @@ exports.getWithCustomTableDescription = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['request'],
                 operation: ['getWithCustomTable'],
             },
         },

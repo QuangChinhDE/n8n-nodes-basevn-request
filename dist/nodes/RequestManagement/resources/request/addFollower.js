@@ -11,7 +11,6 @@ exports.addFollowerDescription = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['request'],
                 operation: ['addFollower'],
             },
         },
@@ -25,7 +24,6 @@ exports.addFollowerDescription = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['request'],
                 operation: ['addFollower'],
             },
         },

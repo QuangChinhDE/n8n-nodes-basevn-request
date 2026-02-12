@@ -52,36 +52,6 @@ const getComments = __importStar(require("../comment/getComments"));
 exports.getComments = getComments;
 exports.description = [
     {
-        displayName: 'Sub-Resource',
-        name: 'subResource',
-        type: 'options',
-        noDataExpression: true,
-        displayOptions: {
-            show: {
-                resource: ['request'],
-            },
-        },
-        options: [
-            {
-                name: 'Direct',
-                value: 'direct',
-            },
-            {
-                name: 'Post',
-                value: 'post',
-            },
-            {
-                name: 'Comment',
-                value: 'comment',
-            },
-            {
-                name: 'Request',
-                value: 'request',
-            },
-        ],
-        default: 'request',
-    },
-    {
         displayName: 'Operation',
         name: 'operation',
         type: 'options',
@@ -89,67 +59,6 @@ exports.description = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['direct'],
-            },
-        },
-        options: [
-            {
-                name: 'Create a New Request by Direct Group',
-                value: 'createDirect',
-                action: 'Create a new request by direct group',
-            },
-        ],
-        default: 'createDirect',
-    },
-    {
-        displayName: 'Operation',
-        name: 'operation',
-        type: 'options',
-        noDataExpression: true,
-        displayOptions: {
-            show: {
-                resource: ['request'],
-                subResource: ['post'],
-            },
-        },
-        options: [
-            {
-                name: 'Get Posts of Request',
-                value: 'getPosts',
-                action: 'Get posts of request',
-            },
-        ],
-        default: 'getPosts',
-    },
-    {
-        displayName: 'Operation',
-        name: 'operation',
-        type: 'options',
-        noDataExpression: true,
-        displayOptions: {
-            show: {
-                resource: ['request'],
-                subResource: ['comment'],
-            },
-        },
-        options: [
-            {
-                name: 'Get Comments of Post',
-                value: 'getComments',
-                action: 'Get comments of post',
-            },
-        ],
-        default: 'getComments',
-    },
-    {
-        displayName: 'Operation',
-        name: 'operation',
-        type: 'options',
-        noDataExpression: true,
-        displayOptions: {
-            show: {
-                resource: ['request'],
-                subResource: ['request'],
             },
         },
         options: [
@@ -159,24 +68,39 @@ exports.description = [
                 action: 'Add follower to request',
             },
             {
-                name: 'Create a New Request by Custom Group',
+                name: 'Create via Custom Group',
                 value: 'createCustom',
                 action: 'Create a new request by custom group',
             },
             {
-                name: 'Get Detail of Request by ID',
+                name: 'Create via Direct Group',
+                value: 'createDirect',
+                action: 'Create a new request by direct group',
+            },
+            {
+                name: 'Get',
                 value: 'get',
                 action: 'Get detail of request by ID',
             },
             {
-                name: 'Get Detail Request with Custom Table',
-                value: 'getWithCustomTable',
-                action: 'Get detail request with custom table',
+                name: 'Get Comments of Post',
+                value: 'getComments',
+                action: 'Get comments of post',
             },
             {
                 name: 'Get Many',
                 value: 'getAll',
                 action: 'List all requests in system',
+            },
+            {
+                name: 'Get Posts of Request',
+                value: 'getPosts',
+                action: 'Get posts of request',
+            },
+            {
+                name: 'Get with Custom Table',
+                value: 'getWithCustomTable',
+                action: 'Get detail request with custom table',
             },
         ],
         default: 'get',

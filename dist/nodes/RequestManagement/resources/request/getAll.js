@@ -11,7 +11,6 @@ exports.getAllDescription = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['request'],
                 operation: ['getAll'],
             },
         },
@@ -21,7 +20,6 @@ exports.getAllDescription = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['request'],
                 operation: ['getAll'],
                 returnAll: [false],
             },
@@ -36,7 +34,6 @@ exports.getAllDescription = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['request'],
                 operation: ['getAll'],
             },
         },

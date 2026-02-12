@@ -17,7 +17,6 @@ export const getAllDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['request'],
-				subResource: ['request'],
 				operation: ['getAll'],
 			},
 		},
@@ -27,7 +26,6 @@ export const getAllDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['request'],
-				subResource: ['request'],
 				operation: ['getAll'],
 				returnAll: [false],
 			},
@@ -42,7 +40,6 @@ export const getAllDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['request'],
-				subResource: ['request'],
 				operation: ['getAll'],
 			},
 		},

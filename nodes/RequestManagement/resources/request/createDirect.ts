@@ -14,7 +14,6 @@ export const createDirectDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['request'],
-				subResource: ['direct'],
 				operation: ['createDirect'],
 			},
 		},
@@ -28,7 +27,6 @@ export const createDirectDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['request'],
-				subResource: ['direct'],
 				operation: ['createDirect'],
 			},
 		},
@@ -43,7 +41,6 @@ export const createDirectDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['request'],
-				subResource: ['direct'],
 				operation: ['createDirect'],
 			},
 		},

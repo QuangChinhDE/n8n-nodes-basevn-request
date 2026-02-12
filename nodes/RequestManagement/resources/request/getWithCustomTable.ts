@@ -14,7 +14,6 @@ export const getWithCustomTableDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['request'],
-				subResource: ['request'],
 				operation: ['getWithCustomTable'],
 			},
 		},

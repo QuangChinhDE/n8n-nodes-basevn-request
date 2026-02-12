@@ -11,7 +11,6 @@ exports.getCommentsDescription = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['comment'],
                 operation: ['getComments'],
             },
         },
@@ -25,7 +24,6 @@ exports.getCommentsDescription = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['comment'],
                 operation: ['getComments'],
             },
         },

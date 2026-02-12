@@ -71,33 +71,24 @@ export class RequestManagement implements INodeType {
 						responseData = await group.getAll.execute.call(this, i);
 					}
 				} else if (resource === 'request') {
-					const subResource = this.getNodeParameter('subResource', i, 'request') as string;
 					const operation = this.getNodeParameter('operation', i) as string;
 					
-					if (subResource === 'direct') {
-						if (operation === 'createDirect') {
-							responseData = await request.createDirect.execute.call(this, i);
-						}
-					} else if (subResource === 'post') {
-						if (operation === 'getPosts') {
-							responseData = await request.getPosts.execute.call(this, i);
-						}
-					} else if (subResource === 'comment') {
-						if (operation === 'getComments') {
-							responseData = await request.getComments.execute.call(this, i);
-						}
-					} else if (subResource === 'request') {
-						if (operation === 'get') {
-							responseData = await request.get.execute.call(this, i);
-						} else if (operation === 'getAll') {
-							responseData = await request.getAll.execute.call(this, i);
-						} else if (operation === 'createCustom') {
-							responseData = await request.createCustom.execute.call(this, i);
-						} else if (operation === 'getWithCustomTable') {
-							responseData = await request.getWithCustomTable.execute.call(this, i);
-						} else if (operation === 'addFollower') {
-							responseData = await request.addFollower.execute.call(this, i);
-						}
+					if (operation === 'get') {
+						responseData = await request.get.execute.call(this, i);
+					} else if (operation === 'getAll') {
+						responseData = await request.getAll.execute.call(this, i);
+					} else if (operation === 'createCustom') {
+						responseData = await request.createCustom.execute.call(this, i);
+					} else if (operation === 'createDirect') {
+						responseData = await request.createDirect.execute.call(this, i);
+					} else if (operation === 'getWithCustomTable') {
+						responseData = await request.getWithCustomTable.execute.call(this, i);
+					} else if (operation === 'addFollower') {
+						responseData = await request.addFollower.execute.call(this, i);
+					} else if (operation === 'getPosts') {
+						responseData = await request.getPosts.execute.call(this, i);
+					} else if (operation === 'getComments') {
+						responseData = await request.getComments.execute.call(this, i);
 					}
 				}
 

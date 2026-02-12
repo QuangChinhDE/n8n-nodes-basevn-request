@@ -14,7 +14,6 @@ export const createCustomDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['request'],
-				subResource: ['request'],
 				operation: ['createCustom'],
 			},
 		},
@@ -28,7 +27,6 @@ export const createCustomDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['request'],
-				subResource: ['request'],
 				operation: ['createCustom'],
 			},
 		},
@@ -43,7 +41,6 @@ export const createCustomDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['request'],
-				subResource: ['request'],
 				operation: ['createCustom'],
 			},
 		},

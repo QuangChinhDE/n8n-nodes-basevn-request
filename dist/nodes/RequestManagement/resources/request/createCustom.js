@@ -11,7 +11,6 @@ exports.createCustomDescription = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['request'],
                 operation: ['createCustom'],
             },
         },
@@ -25,7 +24,6 @@ exports.createCustomDescription = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['request'],
                 operation: ['createCustom'],
             },
         },
@@ -40,7 +38,6 @@ exports.createCustomDescription = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['request'],
                 operation: ['createCustom'],
             },
         },

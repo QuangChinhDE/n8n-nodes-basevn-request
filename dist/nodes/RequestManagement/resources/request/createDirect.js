@@ -11,7 +11,6 @@ exports.createDirectDescription = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['direct'],
                 operation: ['createDirect'],
             },
         },
@@ -25,7 +24,6 @@ exports.createDirectDescription = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['direct'],
                 operation: ['createDirect'],
             },
         },
@@ -40,7 +38,6 @@ exports.createDirectDescription = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['direct'],
                 operation: ['createDirect'],
             },
         },

@@ -14,7 +14,6 @@ export const addFollowerDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['request'],
-				subResource: ['request'],
 				operation: ['addFollower'],
 			},
 		},
@@ -28,7 +27,6 @@ export const addFollowerDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['request'],
-				subResource: ['request'],
 				operation: ['addFollower'],
 			},
 		},

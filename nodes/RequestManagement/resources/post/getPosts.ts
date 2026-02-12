@@ -14,7 +14,6 @@ export const getPostsDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['request'],
-				subResource: ['post'],
 				operation: ['getPosts'],
 			},
 		},
@@ -28,7 +27,6 @@ export const getPostsDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['request'],
-				subResource: ['post'],
 				operation: ['getPosts'],
 			},
 		},

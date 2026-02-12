@@ -14,7 +14,6 @@ export const getCommentsDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['request'],
-				subResource: ['comment'],
 				operation: ['getComments'],
 			},
 		},
@@ -28,7 +27,6 @@ export const getCommentsDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['request'],
-				subResource: ['comment'],
 				operation: ['getComments'],
 			},
 		},

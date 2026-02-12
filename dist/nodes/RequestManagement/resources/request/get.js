@@ -11,7 +11,6 @@ exports.getDescription = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['request'],
                 operation: ['get'],
             },
         },

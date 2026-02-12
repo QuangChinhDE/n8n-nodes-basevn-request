@@ -11,7 +11,6 @@ exports.getPostsDescription = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['post'],
                 operation: ['getPosts'],
             },
         },
@@ -25,7 +24,6 @@ exports.getPostsDescription = [
         displayOptions: {
             show: {
                 resource: ['request'],
-                subResource: ['post'],
                 operation: ['getPosts'],
             },
         },

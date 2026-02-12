@@ -10,37 +10,6 @@ import * as getComments from '../comment/getComments';
 
 export const description: INodeProperties[] = [
 	{
-		displayName: 'Sub-Resource',
-		name: 'subResource',
-		type: 'options',
-		noDataExpression: true,
-		displayOptions: {
-			show: {
-				resource: ['request'],
-			},
-		},
-		options: [
-			{
-				name: 'Direct',
-				value: 'direct',
-			},
-			{
-				name: 'Post',
-				value: 'post',
-			},
-			{
-				name: 'Comment',
-				value: 'comment',
-			},
-			{
-				name: 'Request',
-				value: 'request',
-			},
-		],
-		default: 'request',
-	},
-	// Direct operations
-	{
 		displayName: 'Operation',
 		name: 'operation',
 		type: 'options',
@@ -48,70 +17,6 @@ export const description: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['request'],
-				subResource: ['direct'],
-			},
-		},
-		options: [
-			{
-				name: 'Create a New Request by Direct Group',
-				value: 'createDirect',
-				action: 'Create a new request by direct group',
-			},
-		],
-		default: 'createDirect',
-	},
-	// Post operations
-	{
-		displayName: 'Operation',
-		name: 'operation',
-		type: 'options',
-		noDataExpression: true,
-		displayOptions: {
-			show: {
-				resource: ['request'],
-				subResource: ['post'],
-			},
-		},
-		options: [
-			{
-				name: 'Get Posts of Request',
-				value: 'getPosts',
-				action: 'Get posts of request',
-			},
-		],
-		default: 'getPosts',
-	},
-	// Comment operations
-	{
-		displayName: 'Operation',
-		name: 'operation',
-		type: 'options',
-		noDataExpression: true,
-		displayOptions: {
-			show: {
-				resource: ['request'],
-				subResource: ['comment'],
-			},
-		},
-		options: [
-			{
-				name: 'Get Comments of Post',
-				value: 'getComments',
-				action: 'Get comments of post',
-			},
-		],
-		default: 'getComments',
-	},
-	// Main Request operations
-	{
-		displayName: 'Operation',
-		name: 'operation',
-		type: 'options',
-		noDataExpression: true,
-		displayOptions: {
-			show: {
-				resource: ['request'],
-				subResource: ['request'],
 			},
 		},
 		options: [
@@ -121,24 +26,39 @@ export const description: INodeProperties[] = [
 				action: 'Add follower to request',
 			},
 			{
-				name: 'Create a New Request by Custom Group',
+				name: 'Create via Custom Group',
 				value: 'createCustom',
 				action: 'Create a new request by custom group',
 			},
 			{
-				name: 'Get Detail of Request by ID',
+				name: 'Create via Direct Group',
+				value: 'createDirect',
+				action: 'Create a new request by direct group',
+			},
+			{
+				name: 'Get',
 				value: 'get',
 				action: 'Get detail of request by ID',
 			},
 			{
-				name: 'Get Detail Request with Custom Table',
-				value: 'getWithCustomTable',
-				action: 'Get detail request with custom table',
+				name: 'Get Comments of Post',
+				value: 'getComments',
+				action: 'Get comments of post',
 			},
 			{
 				name: 'Get Many',
 				value: 'getAll',
 				action: 'List all requests in system',
+			},
+			{
+				name: 'Get Posts of Request',
+				value: 'getPosts',
+				action: 'Get posts of request',
+			},
+			{
+				name: 'Get with Custom Table',
+				value: 'getWithCustomTable',
+				action: 'Get detail request with custom table',
 			},
 		],
 		default: 'get',
