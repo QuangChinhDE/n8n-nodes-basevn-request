@@ -1,11 +1,10 @@
 import type { INodeProperties } from 'n8n-workflow';
 import * as get from './get';
 import * as getAll from './getAll';
-import * as createDirect from './createDirect';
 import * as createCustom from './createCustom';
 import * as getWithCustomTable from './getWithCustomTable';
 import * as addFollower from './addFollower';
 import * as getPosts from '../post/getPosts';
 import * as getComments from '../comment/getComments';
 export declare const description: INodeProperties[];
-export { get, getAll, createDirect, createCustom, getWithCustomTable, addFollower, getPosts, getComments };
+export { get, getAll, createCustom, getWithCustomTable, addFollower, getPosts, getComments };

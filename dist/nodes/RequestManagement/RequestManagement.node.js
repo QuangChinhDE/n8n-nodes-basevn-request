@@ -109,9 +109,6 @@ class RequestManagement {
                     else if (operation === 'createCustom') {
                         responseData = await request.createCustom.execute.call(this, i);
                     }
-                    else if (operation === 'createDirect') {
-                        responseData = await request.createDirect.execute.call(this, i);
-                    }
                     else if (operation === 'getWithCustomTable') {
                         responseData = await request.getWithCustomTable.execute.call(this, i);
                     }

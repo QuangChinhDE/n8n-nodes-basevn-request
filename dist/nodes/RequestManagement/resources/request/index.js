@@ -33,13 +33,11 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getComments = exports.getPosts = exports.addFollower = exports.getWithCustomTable = exports.createCustom = exports.createDirect = exports.getAll = exports.get = exports.description = void 0;
+exports.getComments = exports.getPosts = exports.addFollower = exports.getWithCustomTable = exports.createCustom = exports.getAll = exports.get = exports.description = void 0;
 const get = __importStar(require("./get"));
 exports.get = get;
 const getAll = __importStar(require("./getAll"));
 exports.getAll = getAll;
-const createDirect = __importStar(require("./createDirect"));
-exports.createDirect = createDirect;
 const createCustom = __importStar(require("./createCustom"));
 exports.createCustom = createCustom;
 const getWithCustomTable = __importStar(require("./getWithCustomTable"));
@@ -68,14 +66,9 @@ exports.description = [
                 action: 'Add follower to request',
             },
             {
-                name: 'Create via Custom Group',
+                name: 'Create Request',
                 value: 'createCustom',
-                action: 'Create a new request by custom group',
-            },
-            {
-                name: 'Create via Direct Group',
-                value: 'createDirect',
-                action: 'Create a new request by direct group',
+                action: 'Create a new request',
             },
             {
                 name: 'Get',
@@ -107,7 +100,6 @@ exports.description = [
     },
     ...get.getDescription,
     ...getAll.getAllDescription,
-    ...createDirect.createDirectDescription,
     ...createCustom.createCustomDescription,
     ...getWithCustomTable.getWithCustomTableDescription,
     ...addFollower.addFollowerDescription,

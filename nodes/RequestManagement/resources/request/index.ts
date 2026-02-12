@@ -1,7 +1,6 @@
 import type { INodeProperties } from 'n8n-workflow';
 import * as get from './get';
 import * as getAll from './getAll';
-import * as createDirect from './createDirect';
 import * as createCustom from './createCustom';
 import * as getWithCustomTable from './getWithCustomTable';
 import * as addFollower from './addFollower';
@@ -26,14 +25,9 @@ export const description: INodeProperties[] = [
 				action: 'Add follower to request',
 			},
 			{
-				name: 'Create via Custom Group',
+				name: 'Create Request',
 				value: 'createCustom',
-				action: 'Create a new request by custom group',
-			},
-			{
-				name: 'Create via Direct Group',
-				value: 'createDirect',
-				action: 'Create a new request by direct group',
+				action: 'Create a new request',
 			},
 			{
 				name: 'Get',
@@ -65,7 +59,6 @@ export const description: INodeProperties[] = [
 	},
 	...get.getDescription,
 	...getAll.getAllDescription,
-	...createDirect.createDirectDescription,
 	...createCustom.createCustomDescription,
 	...getWithCustomTable.getWithCustomTableDescription,
 	...addFollower.addFollowerDescription,
@@ -73,4 +66,4 @@ export const description: INodeProperties[] = [
 	...getComments.getCommentsDescription,
 ];
 
-export { get, getAll, createDirect, createCustom, getWithCustomTable, addFollower, getPosts, getComments };
+export { get, getAll, createCustom, getWithCustomTable, addFollower, getPosts, getComments };
