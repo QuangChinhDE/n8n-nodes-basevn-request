@@ -21,12 +21,6 @@ export class RequestManagementTrigger implements INodeType {
 		},
 		inputs: [],
 		outputs: ['main'],
-		credentials: [
-			{
-				name: 'requestManagementApi',
-				required: true,
-			},
-		],
 		webhooks: [
 			{
 				name: 'default',

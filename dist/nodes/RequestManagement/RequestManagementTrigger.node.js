@@ -16,12 +16,6 @@ class RequestManagementTrigger {
             },
             inputs: [],
             outputs: ['main'],
-            credentials: [
-                {
-                    name: 'requestManagementApi',
-                    required: true,
-                },
-            ],
             webhooks: [
                 {
                     name: 'default',
