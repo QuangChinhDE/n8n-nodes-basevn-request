@@ -3,10 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RequestManagementTrigger = void 0;
 class RequestManagementTrigger {
     constructor() {
+        this.usableAsTool = true;
         this.description = {
             displayName: 'BaseVN - App Request Trigger',
             name: 'requestManagementTrigger',
-            icon: 'file:request.svg',
+            icon: 'file:icons/request.svg',
             group: ['trigger'],
             version: 1,
             description: 'Starts the workflow when BaseVN Request events occur',
@@ -51,7 +52,7 @@ class RequestManagementTrigger {
                             description: 'Trigger when a request is rejected',
                         },
                         {
-                            name: '*',
+                            name: '[All]',
                             value: '*',
                             description: 'Trigger on all events',
                         },

@@ -7,10 +7,12 @@ import type {
 } from 'n8n-workflow';
 
 export class RequestManagementTrigger implements INodeType {
+	usableAsTool = true;
+
 	description: INodeTypeDescription = {
 		displayName: 'BaseVN - App Request Trigger',
 		name: 'requestManagementTrigger',
-		icon: 'file:request.svg',
+		icon: 'file:icons/request.svg',
 		group: ['trigger'],
 		version: 1,
 		description: 'Starts the workflow when BaseVN Request events occur',
@@ -55,7 +57,7 @@ export class RequestManagementTrigger implements INodeType {
 						description: 'Trigger when a request is rejected',
 					},
 					{
-						name: '*',
+						name: '[All]',
 						value: '*',
 						description: 'Trigger on all events',
 					},
