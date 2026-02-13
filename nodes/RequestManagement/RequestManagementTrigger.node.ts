@@ -90,6 +90,7 @@ export class RequestManagementTrigger implements INodeType {
 				description: 'Select which data to return from webhook',
 			},
 		],
+		usableAsTool: true,
 	};
 
 	async webhook(this: IWebhookFunctions): Promise<IWebhookResponseData> {

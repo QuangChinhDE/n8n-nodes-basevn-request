@@ -85,6 +85,7 @@ class RequestManagementTrigger {
                     description: 'Select which data to return from webhook',
                 },
             ],
+            usableAsTool: true,
         };
     }
     async webhook() {
