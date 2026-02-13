@@ -37,7 +37,8 @@
 			"dist/credentials/RequestManagementApi.credentials.js"
 		],
 		"nodes": [
-			"dist/nodes/RequestManagement/RequestManagement.node.js"
+			"dist/nodes/RequestManagement/RequestManagement.node.js",
+			"dist/nodes/RequestManagement/RequestManagementTrigger.node.js"
 		]
 	},
 	"devDependencies": {
