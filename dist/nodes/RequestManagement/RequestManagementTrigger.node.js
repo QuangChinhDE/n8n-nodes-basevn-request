@@ -7,7 +7,7 @@ class RequestManagementTrigger {
         this.description = {
             displayName: 'BaseVN - App Request Trigger',
             name: 'requestManagementTrigger',
-            icon: 'file:icons/request.svg',
+            icon: 'file:../../icons/request.svg',
             group: ['trigger'],
             version: 1,
             description: 'Starts the workflow when BaseVN Request events occur',
@@ -97,7 +97,7 @@ class RequestManagementTrigger {
         if (state === 'done' && status === '10') {
             detectedEvent = 'requestApproved';
         }
-        else if (status === '20') {
+        else if (status === '-10') {
             detectedEvent = 'requestRejected';
         }
         else if (status === '0') {

@@ -12,7 +12,7 @@ export class RequestManagementTrigger implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'BaseVN - App Request Trigger',
 		name: 'requestManagementTrigger',
-		icon: 'file:icons/request.svg',
+		icon: 'file:../../icons/request.svg',
 		group: ['trigger'],
 		version: 1,
 		description: 'Starts the workflow when BaseVN Request events occur',
@@ -105,7 +105,7 @@ export class RequestManagementTrigger implements INodeType {
 
 		if (state === 'done' && status === '10') {
 			detectedEvent = 'requestApproved';
-		} else if (status === '20') {
+		} else if (status === '-10') {
 			detectedEvent = 'requestRejected';
 		} else if (status === '0') {
 			detectedEvent = 'requestCreated';
