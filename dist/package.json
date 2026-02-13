@@ -1,6 +1,6 @@
 {
     "name": "n8n-nodes-basevn-request",
-    "version": "0.2.12",
+    "version": "0.2.13",
     "description": "n8n node for BaseVN - App Request integration",
     "license": "MIT",
     "homepage": "",
@@ -32,7 +32,6 @@
     ],
     "n8n": {
         "n8nNodesApiVersion": 1,
-        "strict": true,
         "credentials": [
             "dist/credentials/RequestManagementApi.credentials.js"
         ],
