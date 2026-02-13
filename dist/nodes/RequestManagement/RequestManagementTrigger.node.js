@@ -27,10 +27,19 @@ class RequestManagementTrigger {
                     name: 'default',
                     httpMethod: 'POST',
                     responseMode: 'onReceived',
-                    path: 'webhook',
+                    path: '={{$parameter["path"]}}',
                 },
             ],
             properties: [
+                {
+                    displayName: 'Webhook Path',
+                    name: 'path',
+                    type: 'string',
+                    default: 'webhook',
+                    required: true,
+                    placeholder: 'webhook',
+                    description: 'The path for the webhook URL. Leave as default or customize it.',
+                },
                 {
                     displayName: 'Event',
                     name: 'event',
@@ -51,13 +60,8 @@ class RequestManagementTrigger {
                             value: 'requestRejected',
                             description: 'Trigger when a request is rejected',
                         },
-                        {
-                            name: '[All]',
-                            value: '*',
-                            description: 'Trigger on all events',
-                        },
                     ],
-                    default: '*',
+                    default: 'requestCreated',
                     description: 'The event to listen to',
                 },
                 {
@@ -104,7 +108,7 @@ class RequestManagementTrigger {
         else if (status === '0') {
             detectedEvent = 'requestCreated';
         }
-        if (event !== '*' && event !== detectedEvent) {
+        if (event !== detectedEvent) {
             return {
                 workflowData: [[]],
             };

@@ -32,10 +32,19 @@ export class RequestManagementTrigger implements INodeType {
 				name: 'default',
 				httpMethod: 'POST',
 				responseMode: 'onReceived',
-				path: 'webhook',
+				path: '={{$parameter["path"]}}',
 			},
 		],
 		properties: [
+			{
+				displayName: 'Webhook Path',
+				name: 'path',
+				type: 'string',
+				default: 'webhook',
+				required: true,
+				placeholder: 'webhook',
+				description: 'The path for the webhook URL. Leave as default or customize it.',
+			},
 			{
 				displayName: 'Event',
 				name: 'event',
@@ -56,13 +65,8 @@ export class RequestManagementTrigger implements INodeType {
 						value: 'requestRejected',
 						description: 'Trigger when a request is rejected',
 					},
-					{
-						name: '[All]',
-						value: '*',
-						description: 'Trigger on all events',
-					},
 				],
-				default: '*',
+				default: 'requestCreated',
 				description: 'The event to listen to',
 			},
 			{
@@ -113,7 +117,7 @@ export class RequestManagementTrigger implements INodeType {
 		}
 
 		// Check if the detected event matches the configured event
-		if (event !== '*' && event !== detectedEvent) {
+		if (event !== detectedEvent) {
 			// Return empty response if event doesn't match
 			return {
 				workflowData: [[]],
